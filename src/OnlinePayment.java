@@ -56,7 +56,7 @@ public class OnlinePayment {
 
                 if (name.isEmpty() || accNum.isEmpty()) {
                     JOptionPane.showMessageDialog(onlinePaymentPanel,
-                            "Name or Account number cannot be empty.");
+                            "Account number cannot be empty.");
                     return;
                 }
 
@@ -164,6 +164,8 @@ public class OnlinePayment {
             frame.setSize(490, 720);
             frame.setLocationRelativeTo(null);
             frame.setVisible(true);
+
+            Main.setAppIcon(frame);
 
             JFrame currentFrame = (JFrame) SwingUtilities.getWindowAncestor(onlinePaymentPanel);
             if (currentFrame != null) {
