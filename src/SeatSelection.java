@@ -9,7 +9,6 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import javax.swing.JCheckBox;
 
-
 public class SeatSelection {
     private JCheckBox chkS11;
     private JCheckBox chkS9;
@@ -40,7 +39,7 @@ public class SeatSelection {
     private JCheckBox chkS1;
     private JButton btnSeatSelectReturn;
     private JPanel seatSelectionPanel;
-    private int selectedBusNum, busSeat;
+    private int selectedBusNum;
 
     Payment payment = new BusFarePayment(Main.userType);
 
@@ -258,7 +257,7 @@ public class SeatSelection {
                 );
 
                 if (paymentMethod == 0) {
-                    // Reserve seat only after valid name
+                    // reserve seat only after valid name
                     if (!reserveSeat(seatNum)) {
                         seat.setSelected(false);
                         return;

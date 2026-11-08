@@ -184,7 +184,7 @@ public class BusStatus {
 
                     try (Connection con = DatabaseConnection.getConnection()) {
 
-                        // Reset the selected bus
+                        // reset the selected bus
                         try (PreparedStatement busStmt =
                                      con.prepareStatement(resetBusQuery)) {
 
@@ -200,7 +200,7 @@ public class BusStatus {
                             }
                         }
 
-                        // Reset the current driver's selected bus
+                        // reset the current driver's selected bus
                         try (PreparedStatement driverStmt =
                                      con.prepareStatement(resetDriverQuery)) {
 
@@ -216,7 +216,7 @@ public class BusStatus {
                             }
                         }
 
-                        // Reset seat reservation for selected bus
+                        // reset seat reservation for selected bus
                         try (PreparedStatement seatReservationStmt = con.prepareStatement(resetSeatSelection)) {
                             seatReservationStmt.setInt(1, selectedBusNum);
 
@@ -230,7 +230,7 @@ public class BusStatus {
                             }
                         }
 
-                        // Reset transaction history for selected bus
+                        // reset transaction history for selected bus
                         try (PreparedStatement transactionStmt = con.prepareStatement(resetTransactionHistory)) {
                             transactionStmt.setInt(1, selectedBusNum);
 
@@ -249,7 +249,7 @@ public class BusStatus {
                                 "Thank you for your service! Your bus has been reset."
                         );
 
-                        // Open the bus selection panel again
+                        // open the bus selection panel again
                         JFrame frame = new JFrame("SELECT A BUS");
                         BusDetails form = new BusDetails(username);
 
@@ -259,7 +259,7 @@ public class BusStatus {
                         frame.setLocationRelativeTo(null);
                         frame.setVisible(true);
 
-                        // Close the current BusStatus window
+                        // close the current BusStatus window
                         JFrame currentFrame =
                                 (JFrame) SwingUtilities.getWindowAncestor(busStatusPanel);
 

@@ -75,7 +75,7 @@ public class StudentSignUp {
     }
 
     public StudentSignUp() {
-        new StudentSignUpUI(this);
+        new StudentSignUpUI(this);   // access the StudentSignUpUI and give this(the current object - StudentSignUp)
 
         btnSignUpReturn.addActionListener(new ActionListener() {
             @Override

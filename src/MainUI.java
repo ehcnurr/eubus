@@ -5,7 +5,7 @@ public class MainUI {
 
     private Main main;
 
-    // Components from Main.java
+    // from main.java
     private JLabel lblUniversity;
     private JLabel lblSubtitle;
 
@@ -19,12 +19,10 @@ public class MainUI {
     private JLabel lblChooseUserType;
     private JLabel lblSelectOption;
 
-    // CONSTRUCTOR
     public MainUI(Main main) {
+        this.main = main;  // received an object so this class can use it
 
-        this.main = main;
-
-        // GET COMPONENTS USING GETTERS FROM Main.java
+        // get components using getters from Main.java
         lblUniversity = main.getLblUniversity();
         lblSubtitle = main.getLblSubtitle();
 
@@ -38,94 +36,52 @@ public class MainUI {
         lblChooseUserType = main.getLblChooseUserType();
         lblSelectOption = main.getLblSelectOption();
 
-        // CUSTOMIZE UI
         customizeUniversity();
         customizeInstructions();
         customizeButtons();
         buildCenteredLayout();
     }
 
-    // UNIVERSITY LOGO
+    // univ logo
     private void customizeUniversity() {
-
-        lblUniversity.setIcon(
-                getIcon("mseuf-logo.png", 95, 95)
-        );
-
+        lblUniversity.setIcon(getIcon("mseuf-logo.png", 95, 95));
         lblUniversity.setText("MSEUF");
-
-        lblUniversity.setFont(
-                new Font("Segoe UI", Font.BOLD, 22)
-        );
-
+        lblUniversity.setFont(new Font("Segoe UI", Font.BOLD, 22));
         lblUniversity.setForeground(new Color(128, 0, 32));
-
-        lblUniversity.setHorizontalAlignment(
-                SwingConstants.CENTER
-        );
-
-        lblUniversity.setHorizontalTextPosition(
-                SwingConstants.CENTER
-        );
-
-        lblUniversity.setVerticalTextPosition(
-                SwingConstants.BOTTOM
-        );
-
+        lblUniversity.setHorizontalAlignment(SwingConstants.CENTER);
+        lblUniversity.setHorizontalTextPosition(SwingConstants.CENTER);
+        lblUniversity.setVerticalTextPosition(SwingConstants.BOTTOM);
         lblUniversity.setIconTextGap(10);
 
-        // SUBTITLE
         lblSubtitle.setText("SCHOOL BUS SEAT RESERVATION");
-
-        lblSubtitle.setFont(
-                new Font("Segoe UI", Font.PLAIN, 15)
-        );
-
+        lblSubtitle.setFont(new Font("Segoe UI", Font.PLAIN, 15));
         lblSubtitle.setForeground(Color.GRAY);
-
         lblSubtitle.setAlignmentX(Component.CENTER_ALIGNMENT);
     }
 
-    // INSTRUCTIONS
+    //  instructions design   -- Choose User Type & Select an option label
     private void customizeInstructions() {
-
-        instructionPanel.removeAll();
-
-        instructionPanel.setLayout(
-                new BoxLayout(instructionPanel, BoxLayout.Y_AXIS)
-        );
-
-        instructionPanel.setOpaque(false);
-
-        lblChooseUserType.setAlignmentX(
-                Component.CENTER_ALIGNMENT
-        );
-
-        lblSelectOption.setAlignmentX(
-                Component.CENTER_ALIGNMENT
-        );
-
+        instructionPanel.setLayout(new BoxLayout(instructionPanel, BoxLayout.Y_AXIS));  // arrange components vertically, from top to bottom
+        instructionPanel.setOpaque(false);   // make panel transparent
+        lblChooseUserType.setAlignmentX(Component.CENTER_ALIGNMENT);   // center horizontally
+        lblSelectOption.setAlignmentX(Component.CENTER_ALIGNMENT);   // both label will be centered
         instructionPanel.add(lblChooseUserType);
-        instructionPanel.add(Box.createVerticalStrut(5));
+        instructionPanel.add(Box.createVerticalStrut(5));   // high gap between the labels
         instructionPanel.add(lblSelectOption);
-
-        instructionPanel.revalidate();
-        instructionPanel.repaint();
     }
 
-    // IMAGE ICON
+    // get the image icon
     private ImageIcon getIcon(String filename, int width, int height) {
-
-        java.net.URL imageURL =
-                getClass().getResource("/images/" + filename);
+        java.net.URL imageURL = getClass().getResource("/images/" + filename);
 
         if (imageURL == null) {
             System.out.println("IMAGE NOT FOUND: " + filename);
             return null;
         }
 
-        ImageIcon icon = new ImageIcon(imageURL);
+        ImageIcon icon = new ImageIcon(imageURL);  // ImageIcon - Java swing class to display an icon
 
+        // scaling image
         Image image = icon.getImage().getScaledInstance(
                 width,
                 height,
@@ -135,9 +91,7 @@ public class MainUI {
         return new ImageIcon(image);
     }
 
-    // CUSTOMIZE BUTTONS
-    private void customizeButtons() {
-
+    private void customizeButtons() {   // for buttons
         Color burgundy = new Color(128, 0, 32);
 
         JButton[] buttons = {
@@ -147,145 +101,79 @@ public class MainUI {
         };
 
         for (JButton button : buttons) {
-
             button.setBackground(burgundy);
             button.setForeground(Color.WHITE);
 
-            button.setFont(
-                    new Font("Segoe UI", Font.BOLD, 16)
-            );
+            button.setFont(new Font("Segoe UI", Font.BOLD, 16));
+            button.setPreferredSize(new Dimension(420, 55));
+            button.setMinimumSize(new Dimension(100, 55));
+            button.setMaximumSize(new Dimension(Integer.MAX_VALUE, 55));
 
-            button.setPreferredSize(
-                    new Dimension(420, 55)
-            );
-
-            button.setMinimumSize(
-                    new Dimension(100, 55)
-            );
-
-            button.setMaximumSize(
-                    new Dimension(Integer.MAX_VALUE, 55)
-            );
-
-            button.setFocusPainted(false);
-            button.setBorderPainted(false);
+            button.setFocusPainted(false);  // remove focus indicator around the button so tthe button will look cleaner
+            button.setBorderPainted(false);  // remove border
         }
     }
 
-    // CENTERED LAYOUT
-    private void buildCenteredLayout() {
+    private void buildCenteredLayout() { // will center the contents
+        JPanel contentPanel = new JPanel();   // create panel to arrange everything vertically  (container for everything on the screen)
+        contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));  // make everything vertical
+        contentPanel.setOpaque(false);  // clear background
+        contentPanel.setBorder(BorderFactory.createEmptyBorder(30, 35, 30, 35));  // spaces around
 
-        JPanel contentPanel = new JPanel();
+        lblUniversity.setAlignmentX(Component.CENTER_ALIGNMENT);
+        lblSubtitle.setAlignmentX(Component.CENTER_ALIGNMENT);
+        instructionPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        contentPanel.setLayout(
-                new BoxLayout(contentPanel, BoxLayout.Y_AXIS)
-        );
-
-        contentPanel.setOpaque(false);
-
-        contentPanel.setBorder(
-                BorderFactory.createEmptyBorder(
-                        30, 35, 30, 35
-                )
-        );
-
-        // UNIVERSITY
-        lblUniversity.setAlignmentX(
-                Component.CENTER_ALIGNMENT
-        );
-
-        lblSubtitle.setAlignmentX(
-                Component.CENTER_ALIGNMENT
-        );
-
-        // INSTRUCTIONS
-        instructionPanel.setAlignmentX(
-                Component.CENTER_ALIGNMENT
-        );
-
-        // BUTTONS
         JButton[] buttons = {
                 btnStudentStaff,
                 btnDriver,
                 btnGuest
         };
 
+        // center every button
         for (JButton button : buttons) {
             button.setAlignmentX(
                     Component.CENTER_ALIGNMENT
             );
         }
 
-        // TOP SECTION
         contentPanel.add(lblUniversity);
-
-        contentPanel.add(
-                Box.createVerticalStrut(5)
-        );
-
+        contentPanel.add(Box.createVerticalStrut(5));  // 5px vertical space
         contentPanel.add(lblSubtitle);
+        contentPanel.add(Box.createVerticalStrut(20)); // 20px space divider
 
-        // DIVIDER
-        contentPanel.add(
-                Box.createVerticalStrut(20)
-        );
-
-        JSeparator separator =
-                new JSeparator(SwingConstants.HORIZONTAL);
+        JSeparator separator = new JSeparator(SwingConstants.HORIZONTAL);  // line separator
 
         separator.setForeground(Color.BLACK);
         separator.setBackground(Color.BLACK);
 
-        separator.setMaximumSize(
-                new Dimension(Integer.MAX_VALUE, 2)
-        );
+        separator.setMaximumSize(new Dimension(Integer.MAX_VALUE, 2));
 
         contentPanel.add(separator);
-
-        contentPanel.add(
-                Box.createVerticalStrut(30)
-        );
-
-        // INSTRUCTIONS
+        contentPanel.add(Box.createVerticalStrut(30));
         contentPanel.add(instructionPanel);
-
-        contentPanel.add(
-                Box.createVerticalStrut(50)
-        );
-
-        // BUTTONS
+        contentPanel.add(Box.createVerticalStrut(50));
         contentPanel.add(btnStudentStaff);
-
-        contentPanel.add(
-                Box.createVerticalStrut(25)
-        );
-
+        contentPanel.add(Box.createVerticalStrut(25));
         contentPanel.add(btnDriver);
-
-        contentPanel.add(
-                Box.createVerticalStrut(25)
-        );
-
+        contentPanel.add(Box.createVerticalStrut(25));
         contentPanel.add(btnGuest);
 
-        // CENTER EVERYTHING
-        mainPanel.removeAll();
+        // center everything
+        mainPanel.setLayout(new GridBagLayout());
 
-        mainPanel.setLayout(
-                new GridBagLayout()
-        );
+        GridBagConstraints gbc = new GridBagConstraints();  // will use this to control the position
 
-        GridBagConstraints gbc =
-                new GridBagConstraints();
-
+        //sets grid position column, row
         gbc.gridx = 0;
         gbc.gridy = 0;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.weightx = 1.0;
+        gbc.fill = GridBagConstraints.HORIZONTAL;  // allow the component to expand horizontally
+        gbc.weightx = 1.0;    // it can take available horizontal space
         gbc.anchor = GridBagConstraints.CENTER;
 
-        mainPanel.add(contentPanel, gbc);
+        mainPanel.add(contentPanel, gbc);   // adding it to the main
 
+        // update ui
         mainPanel.revalidate();
         mainPanel.repaint();
     }

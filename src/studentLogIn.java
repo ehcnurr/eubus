@@ -34,10 +34,6 @@ public class studentLogIn {
         return btnStudentLogIn;
     }
 
-    public JButton getBtnStudentLogReturn() {
-        return btnStudentLogReturn;
-    }
-
     public JPanel getUsernamePanel() {
         return usernamePanel;
     }

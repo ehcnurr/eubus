@@ -302,7 +302,6 @@ public class BusDetails {
         busInfoCardPanel = new RoundedPanel();
         arrivingTimePanel = new RoundedPanel();
         departingTimePanel = new RoundedPanel();
-        // cmbChooseBus = new RoundedButton(); // not working
     }
 }
 

@@ -35,9 +35,7 @@ public class Main {
         return instructionPanel;
     }
 
-    public JLabel getLblChooseUserType() {
-        return lblChooseUserType;
-    }
+    public JLabel getLblChooseUserType() {return lblChooseUserType;}
 
     public JLabel getLblSelectOption() {
         return lblSelectOption;
@@ -48,7 +46,6 @@ public class Main {
     }
 
     public static String userType;
-
 
     public Main() {
         new MainUI(this);

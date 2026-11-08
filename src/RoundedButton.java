@@ -1,14 +1,12 @@
-
 import javax.swing.*;
 import java.awt.*;
 
-public class RoundedButton extends JButton {
-
-    private int radius = 25;
+public class RoundedButton extends JButton {    // means RoundedButton is a custom version of JButton
+    private int radius = 25;     // how rounded the corners are
 
     public RoundedButton(String text) {
-        super(text);
-
+        super(text);        // receives the button's tex
+        // removing designs and effect before drawing
         setOpaque(false);
         setContentAreaFilled(false);
         setFocusPainted(false);
@@ -21,9 +19,7 @@ public class RoundedButton extends JButton {
 
     @Override
     protected void paintComponent(Graphics g) {
-
         Graphics2D g2 = (Graphics2D) g.create();
-
         g2.setRenderingHint(
                 RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON
@@ -46,7 +42,6 @@ public class RoundedButton extends JButton {
         );
 
         g2.dispose();
-
         super.paintComponent(g);
     }
 }

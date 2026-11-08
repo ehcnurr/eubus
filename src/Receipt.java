@@ -34,55 +34,42 @@ public class Receipt {
     public JLabel getLblName() {
         return lblName;
     }
-
     public JLabel getLblBusNum() {
         return lblBusNum;
     }
-
     public JLabel getLblSeatNum() {
         return lblSeatNum;
     }
-
     public JLabel getLblDriver() {
         return lblDriver;
     }
-
     public JLabel getLblPayMethod() {
         return lblPayMethod;
     }
-
     public JLabel getLblPaymentProv() {
         return lblPaymentProv;
     }
-
     public JLabel getLblAccNum() {
         return lblAccNum;
     }
-
     public JLabel getLblReservedAt() {
         return lblReservedAt;
     }
-
     public JLabel getLblAmountPaid() {
         return lblAmountPaid;
     }
-
     public JPanel getLine1Panel() {
         return line1Panel;
     }
-
     public JPanel getLine2Panel() {
         return line2Panel;
     }
-
     public JLabel getLblSecuredTicket() {
         return lblSecuredTicket;
     }
-
     public JLabel getLblBarcode() {
         return lblBarcode;
     }
-
     public JLabel getLblNote() {
         return lblNote;
     }
@@ -157,8 +144,6 @@ public class Receipt {
         });
 
     }
-
-
 
     public JPanel getReceiptPanel() {
         return receiptPanel;

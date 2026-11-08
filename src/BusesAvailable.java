@@ -67,24 +67,12 @@ public class BusesAvailable {
         return headerPanel;
     }
 
-    public JPanel getSelectionPanel() {
-        return selectionPanel;
-    }
-
-    public JPanel getTablePanel() {
-        return tablePanel;
-    }
-
     public JPanel getGoldLinePanel() {
         return goldLinePanel;
     }
 
     public JLabel getLblSubtitle() {
         return lblSubtitle;
-    }
-
-    public JScrollPane getTblScrollPane() {
-        return tblScrollPane;
     }
 
     public JLabel getLblBusIcon() {
@@ -94,7 +82,6 @@ public class BusesAvailable {
     DefaultTableModel tableBuses = new DefaultTableModel();
 
     public BusesAvailable() {
-
         tableBuses.addColumn("Bus Number");
         tableBuses.addColumn("Driver Name");
         tableBuses.addColumn("Arriving Time");

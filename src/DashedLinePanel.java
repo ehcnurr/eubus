@@ -2,11 +2,11 @@ import javax.swing.*;
 import java.awt.*;
 
 public class DashedLinePanel extends JPanel {
-    private Color lineColor = new Color(200, 200, 200); // Subtle gray divider
+    private Color lineColor = new Color(200, 200, 200); // subtle gray divider
 
     public DashedLinePanel() {
-        setOpaque(false); // Make sure the background doesn't overwrite the dash
-        setPreferredSize(new Dimension(0, 10)); // Gives it a proper height layout cushion
+        setOpaque(false); // make sure the background doesn't overwrite the dash
+        setPreferredSize(new Dimension(0, 10)); // gives it a proper height layout cushion
     }
 
     @Override
@@ -14,14 +14,14 @@ public class DashedLinePanel extends JPanel {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g.create();
 
-        // Enable anti-aliasing for smooth rendering
+        // enable anti-aliazing for smooth rendering
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g2d.setColor(lineColor);
 
         // Define the pattern: 6px line, 6px blank gap
         float[] dashPattern = {6f, 6f};
         BasicStroke dashedStroke = new BasicStroke(
-                1.5f,                      // Line thickness
+                1.5f,                      // line thickness
                 BasicStroke.CAP_BUTT,
                 BasicStroke.JOIN_MITER,
                 1.0f,
@@ -31,7 +31,7 @@ public class DashedLinePanel extends JPanel {
 
         g2d.setStroke(dashedStroke);
 
-        // Draw horizontally centered across the panel width
+        // draw horizontally centered across the panel width
         int y = getHeight() / 2;
         g2d.drawLine(0, y, getWidth(), y);
 
