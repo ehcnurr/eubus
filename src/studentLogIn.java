@@ -132,19 +132,65 @@ public class studentLogIn {
                     JOptionPane.showMessageDialog(null, "Login Successful!");
 
                     // if student have reserve already, it will show the receipt form
+                    Main.loggedInUsername = inputUsername;
 
-                    try {
+                    if (hasExistingReservation(inputUsername)) {
+                        String checkQuery = """
+                                SELECT reservation_id, driver_username, bus_num,
+                                        seat_num, passenger_name, payment_method,
+                                        payment_provider, account_number, 
+                                        amount_paid, reserved_at
+                                FROM transaction_history
+                                WHERE student_username = ?
+                                LIMIT 1
+                                """;
+
+                        try (
+                            Connection conn = DatabaseConnection.getConnection();
+                            PreparedStatement stmtt = conn.prepareStatement(checkQuery)
+                        ) {
+                            stmtt.setString(1, inputUsername);
+
+                            try (ResultSet rss = stmtt.executeQuery()) {
+                                if (rss.next()) {
+                                    Receipt receipt = new Receipt(
+                                            rss.getInt("reservation_id"),
+                                            rss.getString("driver_username"),
+                                            rss.getInt("bus_num"),
+                                            rss.getString("seat_num"),
+                                            rss.getString("passenger_name"),
+                                            rss.getString("payment_method"),
+                                            rss.getString("payment_provider"),
+                                            rss.getString("account_number"),
+                                            rss.getInt("amount_paid"),
+                                            rss.getString("reserved_at")
+                                    );
+
+                                    JFrame frame = new JFrame("YOUR RECEIPT");
+
+                                    frame.setContentPane(receipt.getReceiptPanel());
+                                    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                                    frame.setSize(490, 720);
+                                    frame.setLocationRelativeTo(null);
+                                    frame.setVisible(true);
+
+                                    JFrame currentFrame = (JFrame)
+                                            SwingUtilities.getWindowAncestor(studentLoginPanel);
+
+                                    if (currentFrame != null) {
+                                        currentFrame.dispose();
+                                    }
+                                }
+                            }
+                        } catch (SQLException ex) {
+                            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
+                        }
+                    } else {
                         JFrame frame = new JFrame("AVAILABLE BUSES");
+
                         BusesAvailable form = new BusesAvailable();
 
                         JPanel panel = form.getAvailableBusPanel();
-                        if (panel == null) {
-                            JOptionPane.showMessageDialog(null,
-                                    "Error: getAvailableBusPanel returned null. Check BusesAvailable.java!",
-                                    "Null Panel Error",
-                                    JOptionPane.ERROR_MESSAGE);
-                            return;
-                        }
 
                         frame.setContentPane(panel);
                         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -152,20 +198,38 @@ public class studentLogIn {
                         frame.setLocationRelativeTo(null);
                         frame.setVisible(true);
 
-                        JFrame currentFrame = (JFrame) SwingUtilities.getWindowAncestor(studentLoginPanel);
+                        JFrame currentFrame = (JFrame)
+                                SwingUtilities.getWindowAncestor(studentLoginPanel);
+
                         if (currentFrame != null) {
                             currentFrame.dispose();
                         }
-                    } catch (Exception ex) {
-                        ex.printStackTrace();
                     }
-
-
                 } catch (SQLException ex) {
                     JOptionPane.showMessageDialog(null, "Database error: " + ex.getMessage());
                 }
             }
         });
+    }
+
+    private boolean hasExistingReservation(String username) throws SQLException {
+        String query = """
+                SELECT reservation_id
+                FROM transaction_history
+                WHERE student_username = ?
+                LIMIT 1
+                """;
+
+        try (
+            Connection con = DatabaseConnection.getConnection();
+            PreparedStatement stmt = con.prepareStatement(query);
+        ) {
+            stmt.setString(1, username);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                return rs.next();
+            }
+        }
     }
 
     public JPanel getStudentLoginPanel() {

@@ -11,13 +11,14 @@ public class TransactionHistory {
             int busNum,
             String seatNum,
             String passengerName,
-            double amountPaid) {
+            double amountPaid,
+            String studentUsername) {
 
         String query = """
                 INSERT INTO transaction_history 
                 (driver_username, bus_num, seat_num, passenger_name,
-                 payment_method, amount_paid)
-                SELECT username, ?, ?, ?, "Cash", ?
+                 payment_method, amount_paid, student_username)
+                SELECT username, ?, ?, ?, "Cash", ?, ?
                 FROM drivers WHERE selected_bus = ? LIMIT 1
                 """;
 
@@ -27,7 +28,8 @@ public class TransactionHistory {
             stmt.setString(2, seatNum);
             stmt.setString(3, passengerName);
             stmt.setDouble(4, amountPaid);
-            stmt.setInt(5, busNum);
+            stmt.setString(5, studentUsername);
+            stmt.setInt(6, busNum);
             return stmt.executeUpdate() > 0;
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Failed to save transaction; " + ex.getMessage());
@@ -43,14 +45,15 @@ public class TransactionHistory {
             String paymentMethod,
             String paymentProvider,
             String accountNumber,
-            double amountPaid
+            double amountPaid,
+            String studentUsername
     ) {
 
         String query = """
                 INSERT INTO transaction_history
                 (driver_username, bus_num, seat_num, passenger_name,
-                 payment_method, payment_provider, account_number, amount_paid)
-                SELECT username, ?, ?, ?, ?, ?, ?, ?
+                 payment_method, payment_provider, account_number, amount_paid, student_username)
+                SELECT username, ?, ?, ?, ?, ?, ?, ?, ?
                 FROM drivers WHERE selected_bus = ? LIMIT 1
                 """;
 
@@ -63,7 +66,8 @@ public class TransactionHistory {
             stmt.setString(5, paymentProvider);
             stmt.setString(6, accountNumber);
             stmt.setDouble(7, amountPaid);
-            stmt.setInt(8, busNum);
+            stmt.setString(8, studentUsername);
+            stmt.setInt(9, busNum);
             return stmt.executeUpdate() > 0;
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Failed to save transaction; " + ex.getMessage());

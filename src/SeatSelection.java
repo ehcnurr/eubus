@@ -270,7 +270,8 @@ public class SeatSelection {
                             "Cash",
                             "N/A",
                             "N/A",
-                            amountPaid
+                            amountPaid,
+                            Main.loggedInUsername
                     );
 
                     if (!saved) {

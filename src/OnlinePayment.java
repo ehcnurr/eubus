@@ -67,7 +67,8 @@ public class OnlinePayment {
                         "Online Payment",
                         payment,
                         accNum,
-                        amountPaid
+                        amountPaid,
+                        Main.loggedInUsername
                 );
 
                 if (!saved) {

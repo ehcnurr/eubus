@@ -46,6 +46,7 @@ public class Main {
     }
 
     public static String userType;
+    public static String loggedInUsername = null;
 
     public Main() {
         new MainUI(this);
