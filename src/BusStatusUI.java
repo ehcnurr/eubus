@@ -19,6 +19,7 @@ public class BusStatusUI {
 
         JTable tblHistory = busStatus.getTblHistory();
         JPanel goldLinePanel = busStatus.getGoldLinePanel();
+        JPanel goldLinePanel2 = busStatus.getGoldLinePanel2();
         JTabbedPane tabbedPane1 = busStatus.getTabbedPane1();
 
         tblHistory.setRowHeight(40);
@@ -56,6 +57,16 @@ public class BusStatusUI {
         goldLinePanel.setPreferredSize(new Dimension(0, 2));
         goldLinePanel.setMinimumSize(new Dimension(0, 2));
         goldLinePanel.setMaximumSize(
+                new Dimension(Integer.MAX_VALUE, 2)
+        );
+
+
+        goldLinePanel2.setBackground(new Color(212, 175, 55));
+        goldLinePanel2.setOpaque(true);
+
+        goldLinePanel2.setPreferredSize(new Dimension(0, 2));
+        goldLinePanel2.setMinimumSize(new Dimension(0, 2));
+        goldLinePanel2.setMaximumSize(
                 new Dimension(Integer.MAX_VALUE, 2)
         );
 

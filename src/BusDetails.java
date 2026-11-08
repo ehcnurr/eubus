@@ -57,20 +57,12 @@ public class BusDetails {
         return departingTimePanel;
     }
 
-    public JPanel getBusInfoCardPanel() {
-        return busInfoCardPanel;
-    }
-
     public JPanel getGoldLinePanel() {
         return goldLinePanel;
     }
 
     public JLabel getLblUniversity() {
         return lblUniversity;
-    }
-
-    public String getLoggedInUsername() {
-        return loggedInUsername;
     }
 
     public JLabel getLblSubtitle() {
@@ -83,10 +75,6 @@ public class BusDetails {
 
     public JLabel getLblChoose() {
         return lblChoose;
-    }
-
-    public JLabel getLblBottom() {
-        return lblBottom;
     }
 
     public BusDetails(String username) {
@@ -103,7 +91,6 @@ public class BusDetails {
                         SELECT * FROM buses
                         WHERE bus_num = ? 
                         """;
-
                 try (
                         Connection con = DatabaseConnection.getConnection();
                         PreparedStatement stmt = con.prepareStatement(query);
@@ -119,10 +106,6 @@ public class BusDetails {
                         txtArrivingTime.setText(arrival);
                         txtDepartingTime.setText(departing);
                     }
-
-                    rs.close();
-                    stmt.close();
-                    con.close();
 
                 } catch (SQLException ex) {
                     JOptionPane.showMessageDialog(null, "Database Error: " + ex.getMessage());

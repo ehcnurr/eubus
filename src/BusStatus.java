@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
@@ -22,8 +23,14 @@ public class BusStatus {
     private JPanel statusCardPanel;
     private JPanel transactionCardPanel;
     private JButton btnTransacBack;
-    private JTextField txtTotalCollection;
-    private JTextField txtTotalReservations;
+    private JRadioButton radAtStation;
+    private JRadioButton radHasLeft;
+    private JRadioButton radReset;
+    private JTextArea txtAreaTotal;
+    private JPanel goldLinePanel2;
+    private JPanel atStationPanel;
+    private JPanel hasLeftPanel;
+    private JPanel resetBusPanel;
     private int selectedBusNum;
     private String username;
 
@@ -39,21 +46,7 @@ public class BusStatus {
         return goldLinePanel;
     }
 
-    public JPanel getSpacePanel() {
-        return spacePanel;
-    }
-
-    public JPanel getStatusCardPanel() {
-        return statusCardPanel;
-    }
-
-    public JPanel getTransactionCardPanel() {
-        return transactionCardPanel;
-    }
-
-    public JButton getBtnTransacBack() {
-        return btnTransacBack;
-    }
+    public JPanel getGoldLinePanel2() { return goldLinePanel2; }
 
     public BusStatus(int busNum, String username) {
         this.selectedBusNum = busNum;
@@ -63,7 +56,14 @@ public class BusStatus {
 
         new BusStatusUI(this);
 
-        btnAtStation.addActionListener(new ActionListener() {
+        btnTransacBack.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                returnToMain();
+            }
+        });
+
+        radAtStation.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String status = "At station";
@@ -106,7 +106,7 @@ public class BusStatus {
             }
         });
 
-        btnHasLeft.addActionListener(new ActionListener() {
+        radHasLeft.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String status = "Has left";
@@ -149,15 +149,7 @@ public class BusStatus {
             }
         });
 
-        btnStatusBack.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                returnToMain();
-            }
-        });
-
-
-        btnReset.addActionListener(new ActionListener() {
+        radReset.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int confirmation = JOptionPane.showConfirmDialog(null,
@@ -284,35 +276,10 @@ public class BusStatus {
                 }
             }
         });
-        btnTransacBack.addActionListener(new ActionListener() {
+        btnStatusBack.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                try {
-                    JFrame frame = new JFrame("MAIN");
-                    Main form = new Main();
-
-                    JPanel panel = form.getMainPanel();
-                    if (panel == null) {
-                        JOptionPane.showMessageDialog(null,
-                                "Error: getMainPanel returned null. Check Main.java!",
-                                "Null Panel Error",
-                                JOptionPane.ERROR_MESSAGE);
-                        return;
-                    }
-
-                    frame.setContentPane(panel);
-                    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                    frame.setSize(490, 720);
-                    frame.setLocationRelativeTo(null);
-                    frame.setVisible(true);
-
-                    JFrame currentFrame = (JFrame) SwingUtilities.getWindowAncestor(busStatusPanel);
-                    if (currentFrame != null) {
-                        currentFrame.dispose();
-                    }
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                }
+                returnToMain();
             }
         });
     }
@@ -390,8 +357,27 @@ public class BusStatus {
 
                         NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(Locale.forLanguageTag("en-PH"));
 
-                        txtTotalReservations.setText(String.valueOf(totalReservations));
-                        txtTotalCollection.setText(currencyFormat.format(totalCollections));
+                        txtAreaTotal.setBackground(Color.WHITE);
+                        txtAreaTotal.setForeground(new Color(30, 30, 40));
+                        txtAreaTotal.setFont(new Font("Monospaced", Font.PLAIN, 14));
+                        txtAreaTotal.setEditable(false);
+                        txtAreaTotal.setLineWrap(false);
+
+                        txtAreaTotal.setBorder(
+                                BorderFactory.createEmptyBorder(15, 15, 15, 15)
+                        );
+
+                        String summary = String.format(
+                                "         TRANSACTION OVERVIEW%n%n" +
+                                        "  Reservations          : %d%n%n" +
+                                        "  Collections           : %s%n%n" +
+                                        "  --------------------------------%n" +
+                                        "         MSEUF | EU-BUS",
+                                totalReservations,
+                                currencyFormat.format(totalCollections)
+                        );
+
+                        txtAreaTotal.setText(summary);
                     }
                 }
             }
@@ -440,11 +426,11 @@ public class BusStatus {
         // TODO: place custom component creation code here
         statusCardPanel = new RoundedPanel();
         transactionCardPanel = new RoundedPanel();
-        btnAtStation = new RoundedButton("AT STATION");
-        btnHasLeft = new RoundedButton("HAS LEFT");
-        btnReset = new RoundedButton("RESET BUS");
         btnStatusBack = new RoundedButton("BACK");
         btnTransacBack = new RoundedButton("BACK" );
+        atStationPanel = new RoundedPanel();
+        hasLeftPanel = new RoundedPanel();
+        resetBusPanel = new RoundedPanel();
     }
 
 
